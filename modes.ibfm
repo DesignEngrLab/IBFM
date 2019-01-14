@@ -445,7 +445,7 @@ mode NominalStorage
 	Electrical output effort = Electrical input effort
 	Electrical output rate = Nominal
 mode PartialStorage
-	Electrical output effort = Electrical input effort
+	Electrical output effort = Electrical input effort --
 	Electrical output rate = Low
 mode NoStorage
 	Electrical output effort = Zero
@@ -492,6 +492,14 @@ mode ZeroSignalSource
     Signal output effort = Zero
 mode PartialSignal
 	Signal output effort = Low
+	
+	
+mode HeatSink1
+    Heat input rate = Heat input effort
+mode HotHeatSink1
+    Heat input rate = Heat input effort ++
+mode HottestHeatSink1
+    Heat input rate = Heat input effort ++ ++
 	
 mode HeatSink
     Heat input effort = Nominal

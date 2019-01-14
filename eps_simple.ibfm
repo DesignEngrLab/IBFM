@@ -4,15 +4,15 @@ model eps_simple
     function storeEE StoreElectricalEnergy
     function supplyEE SupplyElectricalEnergy
     function distEE DistributeElectricalEnergy
-    function exportHE1 ExportHeatEnergy
+    function exportHE1 ExportHeatEnergy1
     function EEtoME ConvertElectricalEnergyToMechanicalEnergy
     function exportME ExportMechanicalEnergy
     function EEtoOE ConvertElectricalEnergyToOpticalEnergy
     function exportOE ExportOpticalEnergy
     function EEtoHE ConvertElectricalEnergyToHeatEnergy
-    function exportHE2 ExportHeatEnergy
-	function exportHE3 ExportHeatEnergy
-	function exportHE4 ExportHeatEnergy
+    function exportHE2 ExportHeatEnergy1
+	function exportHE3 ExportHeatEnergy1
+	function exportHE4 ExportHeatEnergy1
     
     flow importEE storeEE Electrical
     flow storeEE supplyEE Electrical

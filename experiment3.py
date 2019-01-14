@@ -17,9 +17,9 @@ importlib.reload(io)
 e1=ibfm.Experiment('eps_simple')
 e1.run(1)
 
-functions, fxnscores, fxnprobs, failutility, fxncost = io.scorefxns(e1)
+functions, fxnscores, fxnprobs, failutility, fxncost,results = io.scorefxns(e1)
 
-factor=1000000
+factor=1
 
 fxnreds, newfailutility=io.optRedundancy(functions, fxnscores, fxnprobs, fxncost,factor)
 

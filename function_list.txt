@@ -61,6 +61,7 @@ ExportByproducts
 ExportElectricalEnergy
 ExportExcessGas
 ExportHeatEnergy
+ExportHeatEnergy1
 ExportMaterial
 ExportMechanicalEnergy
 ExportOpticalEnergy

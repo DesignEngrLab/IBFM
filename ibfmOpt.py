@@ -488,6 +488,8 @@ def scoreEndstates(exp, scenario):
     Flows=["OpticalEnergy","MechanicalEnergy","DesiredHeat"]
     statescores=[]
     
+    endstate={}
+    
     for Flow in Flows:
     
         flowsraw=list(exp.results[scenario].keys())
@@ -500,9 +502,11 @@ def scoreEndstates(exp, scenario):
     
         statescores=statescores+[scoreFlowstate(rate,effort)]
     
+        endstate[Flow]={'rate': rate, 'effort': effort}
+        
     statescore=sum(statescores)
     
-    return statescore
+    return statescore, endstate
 
 #Score function for a given flow state.
 def scoreFlowstate(rate, effort):
@@ -513,7 +517,7 @@ def scoreFlowstate(rate, effort):
             [-100., -100., -100.,-110.,-110.]]
     #1e6
     #10
-    score=50e6*qualfunc[effort][rate]
+    score=10*qualfunc[effort][rate]
     return score
 
 
@@ -533,6 +537,7 @@ def scorefxns(exp):
     fxnprobs={}
     failutility={}
     fxncost={}
+    results={}
     
     for fxn in functions:
         fxnscores[fxn]=[]
@@ -545,7 +550,7 @@ def scorefxns(exp):
     #map each scenario to its originating function
     for scenario in range(scenarios):
         function=list(exp.scenarios[scenario].keys())[0]
-        
+        mode=list(exp.scenarios[scenario].values())[0]
         
         prob1=list(exp.scenarios[scenario].values())[0].prob
         nloc=prob1.find('n')
@@ -554,15 +559,17 @@ def scorefxns(exp):
         probs=probs+[prob]
         probs+=[prob]
 
-        score=scoreEndstates(exp,scenario)
+        score, endstate=scoreEndstates(exp,scenario)
         scores+=[score]
         
         fxnscores[function]+=[score]
         fxnprobs[function]+=[prob]
         failutility[function]=failutility[function] + score*prob
+        
+        results[function, mode,score]= endstate
     #map each function to the utility of making it redundant
     
-    return functions, fxnscores, fxnprobs, failutility, fxncost
+    return functions, fxnscores, fxnprobs, failutility, fxncost, results
 
 def optRedundancy(functions, fxnscores, fxnprobs, fxncost, factor):  
     fxnreds={}
